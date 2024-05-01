@@ -1,8 +1,11 @@
-# React + Vite
+# Anime Tracker v2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple web app to manually track your anime/manga progress.
 
-Currently, two official plugins are available:
+Why v2? Well, I tried to make this 3 years ago but I couldn;t finish it so I just decided to start anew xD
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[**Check it out!**](https://darrionn33.github.io/anime-tracker-v2/)
+
+### Tools used:
+
+- React
