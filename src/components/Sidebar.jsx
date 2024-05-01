@@ -40,10 +40,10 @@ function Sidebar(props) {
         <input
           type="radio"
           name="type"
-          id="Webtoon"
+          id="Manhwa"
           onChange={(e) => setFilter(e.target.id)}
         />
-        <label htmlFor="Webtoon">Webtoon</label>
+        <label htmlFor="Manhwa">Manhwa</label>
       </div>
     </div>
   );

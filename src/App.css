@@ -154,7 +154,7 @@ header {
 .Manga {
   background-color: #f97a5d;
 }
-.Webtoon {
+.Manhwa {
   background-color: #00c857;
 }
 .progress-bar {
@@ -270,22 +270,30 @@ header {
   border-radius: 30px;
   border: 1px solid gray;
 }
+.search > div:nth-child(2) {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+.search > div > input[type="radio"] {
+  margin-left: 10px;
+  margin-right: 5px;
+}
 .search-results {
   overflow-y: scroll;
-  margin-top: 10px;
   height: min(500px, 60dvh);
   padding: 0 10px;
 }
 .search-item {
   padding: 10px;
   margin: 10px 0;
-  height: 110px;
   border-radius: 5px;
   display: flex;
   background-color: var(--tertiary);
 }
 .search-item > .info {
   flex: 1;
+  gap: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -295,14 +303,11 @@ header {
   overflow-x: auto;
 }
 .search-item > .info > p:nth-child(2) {
-  /* flex: 1; */
   font-size: small;
 }
 
 .search-item > button {
-  width: 50px;
-  margin: 20px;
-  margin-right: 10px;
+  padding: 10px 15px;
   font-size: x-large;
   background-color: #00c857;
   color: white;

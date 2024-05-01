@@ -6,27 +6,35 @@ function Search(props) {
   const queryRef = useRef();
   const searchQuery = (e) => {
     e.preventDefault();
-    console.log(queryRef.current.value);
+    const type = document.querySelector(
+      'input[name="type-search"]:checked'
+    ).value;
+    fetch(`https://api.jikan.moe/v4/${type}?q=${queryRef.current.value}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (type == "anime") {
+          setResults([data.data, 1]);
+        } else {
+          setResults([data.data, 0]);
+        }
+      })
+      .catch((e) => console.log({ error: e }));
     queryRef.current.value = "";
-    setResults([
-      {
-        title:
-          "NarutoNarutoNarutoNarutoNarutoNarutoNarutoNarutoNarutoNarutoNarutoNarutoNarutoNaruto",
-        total: 12,
-        completed: 6,
-        type: "Manga",
-      },
-      { title: "Naruto", total: 12, completed: 6, type: "Anime" },
-      { title: "Naruto", total: 12, completed: 6, type: "Webtoon" },
-      { title: "Naruto", total: 12, completed: 6, type: "Anime" },
-      { title: "Naruto", total: 12, completed: 6, type: "Anime" },
-      { title: "Naruto", total: 12, completed: 6, type: "Anime" },
-    ]);
   };
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([[], 0]);
 
   const addNew = (item) => {
-    console.log(item);
+    item.completed = 0;
+    if (results[1] === 1 && !item.chapters) {
+      item.total = 1;
+    } else {
+      item.total = item.chapters;
+    }
+    if (results[1] === 0 && !item.episodes) {
+      item.total = 1;
+    } else {
+      item.total = item.episodes;
+    }
     props.setAnime((prevAnime) => [...prevAnime, item]);
   };
   return (
@@ -53,10 +61,33 @@ function Search(props) {
             placeholder="Enter an anime name..."
           />
         </form>
-        {results.length !== 0 ? (
+        <div>
+          <p>Type:</p>
+          <input
+            type="radio"
+            name="type-search"
+            id="anime-search"
+            value="anime"
+            defaultChecked
+          />
+          <label htmlFor="anime-search">Anime</label>
+          <input
+            type="radio"
+            name="type-search"
+            id="manga-search"
+            value="manga"
+          />
+          <label htmlFor="manga-search">Manga</label>
+        </div>
+        {results[0].length !== 0 ? (
           <div className="search-results">
-            {results.map((item, index) => (
-              <SearchItem item={item} addNew={addNew} key={index} />
+            {results[0].map((item, index) => (
+              <SearchItem
+                item={item}
+                addNew={addNew}
+                key={index}
+                type={results[1]}
+              />
             ))}
           </div>
         ) : (

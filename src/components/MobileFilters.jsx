@@ -37,11 +37,11 @@ function MobileFilters(props) {
       <input
         type="radio"
         name="type-mobile"
-        id="Webtoon-mobile"
+        id="Manhwa-mobile"
         onChange={(e) => setFilter(e.target.labels[0].className)}
       />
-      <label htmlFor="Webtoon-mobile" className="Webtoon">
-        Webtoon
+      <label htmlFor="Manhwa-mobile" className="Manhwa">
+        Manhwa
       </label>
     </div>
   );
