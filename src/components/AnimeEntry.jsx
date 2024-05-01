@@ -16,7 +16,7 @@ function AnimeEntry(props) {
     <div className="anime-entry">
       <div className="left">
         <h3 className="title">
-          <EllipsisText text={props.anime.title} length={50} />
+          <EllipsisText text={props.anime.title} length={40} />
         </h3>
         <span className={"tag " + props.anime.type}>{props.anime.type}</span>
         <div className="progress-bar">

@@ -4,9 +4,14 @@ function Sidebar(props) {
   const setFilter = (filter) => {
     props.setFilter(filter);
   };
+  const showSearch = () => {
+    props.setModal([true, 0]);
+  };
   return (
     <div className="sidebar">
-      <button id="new">+</button>
+      <button id="new" onClick={showSearch}>
+        +
+      </button>
       <div className="divider"></div>
       <div className="filter">
         <h3>Filter</h3>
