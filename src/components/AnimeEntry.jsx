@@ -5,15 +5,22 @@ function AnimeEntry(props) {
   const percentage =
     Math.round((props.anime.completed / props.anime.total) * 100) + "%";
 
-  const add = () => {
+  const add = (e) => {
+    e.stopPropagation();
     props.changeAnime(props.index, true);
   };
-  const sub = () => {
+  const sub = (e) => {
+    e.stopPropagation();
     props.changeAnime(props.index, false);
   };
 
   return (
-    <div className="anime-entry">
+    <div
+      className="anime-entry"
+      onClick={() => {
+        props.setModal([true, 1, props.index]);
+      }}
+    >
       <div className="left">
         <h3 className="title">
           <EllipsisText text={props.anime.title} length={40} />

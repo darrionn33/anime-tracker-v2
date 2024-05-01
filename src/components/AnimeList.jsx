@@ -27,18 +27,21 @@ function AnimeList(props) {
       <button id="new" onClick={showSearch}>
         +
       </button>
-      {props.filter === "All"
-        ? props.anime.map((anime, index) => {
+      {props.anime.length !== 0 ? (
+        props.filter === "All" ? (
+          props.anime.map((anime, index) => {
             return (
               <AnimeEntry
                 anime={anime}
                 key={index}
                 index={index}
                 changeAnime={changeAnime}
+                setModal={props.setModal}
               />
             );
           })
-        : props.anime
+        ) : (
+          props.anime
             .filter((e) => e.type === props.filter)
             .map((anime, index) => {
               return (
@@ -47,9 +50,18 @@ function AnimeList(props) {
                   key={index}
                   index={index}
                   changeAnime={changeAnime}
+                  setModal={props.setModal}
                 />
               );
-            })}
+            })
+        )
+      ) : (
+        <div className="empty">
+          <p>so empty :(</p>
+          <p>add something!</p>
+          <p>T~T</p>
+        </div>
+      )}
     </div>
   );
 }

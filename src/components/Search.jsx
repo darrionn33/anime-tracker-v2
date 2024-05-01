@@ -2,24 +2,32 @@ import React, { useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import SearchItem from "./SearchItem";
+import ReactLoading from "react-loading";
 function Search(props) {
   const queryRef = useRef();
+  const [loading, setLoading] = useState(false);
   const searchQuery = (e) => {
     e.preventDefault();
-    const type = document.querySelector(
-      'input[name="type-search"]:checked'
-    ).value;
-    fetch(`https://api.jikan.moe/v4/${type}?q=${queryRef.current.value}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (type == "anime") {
-          setResults([data.data, 1]);
-        } else {
-          setResults([data.data, 0]);
-        }
-      })
-      .catch((e) => console.log({ error: e }));
-    queryRef.current.value = "";
+    if (queryRef.current.value !== "") {
+      setLoading(true);
+      const type = document.querySelector(
+        'input[name="type-search"]:checked'
+      ).value;
+      fetch(`https://api.jikan.moe/v4/${type}?q=${queryRef.current.value}`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (type == "anime") {
+            setResults([data.data, 1]);
+          } else {
+            setResults([data.data, 0]);
+          }
+          setLoading(false);
+        })
+        .catch((e) => console.log({ error: e }));
+      queryRef.current.value = "";
+      return;
+    }
+    alert("Please enter a search term!");
   };
   const [results, setResults] = useState([[], 0]);
 
@@ -36,6 +44,7 @@ function Search(props) {
       item.total = item.episodes;
     }
     props.setAnime((prevAnime) => [...prevAnime, item]);
+    props.setModal([false, false]);
   };
   return (
     <>
@@ -79,7 +88,11 @@ function Search(props) {
           />
           <label htmlFor="manga-search">Manga</label>
         </div>
-        {results[0].length !== 0 ? (
+        {loading ? (
+          <div className="loading">
+            <ReactLoading type={"spin"} color="#302674" />
+          </div>
+        ) : results[0].length !== 0 ? (
           <div className="search-results">
             {results[0].map((item, index) => (
               <SearchItem

@@ -5,13 +5,9 @@ import Sidebar from "./components/Sidebar";
 import Modal from "./components/Modal";
 
 function App() {
-  let storedData;
+  let storedData = [];
   if (localStorage.getItem("list")) {
     storedData = JSON.parse(localStorage.getItem("list"));
-  } else {
-    storedData = [
-      { title: "One Piece", total: 1024, completed: 655, type: "Manga" },
-    ];
   }
   const [anime, setAnime] = useState(storedData);
 
@@ -24,7 +20,13 @@ function App() {
   return (
     <>
       {modal[0] ? (
-        <Modal option={modal[1]} setModal={setModal} setAnime={setAnime} />
+        <Modal
+          option={modal[1]}
+          setModal={setModal}
+          setAnime={setAnime}
+          anime={anime}
+          index={modal[2]}
+        />
       ) : null}
       <header>Anime Tracker</header>
       <Sidebar setFilter={setFilter} setModal={setModal} />
