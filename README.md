@@ -20,6 +20,12 @@ A simple web app to manually track your anime/manga progress.
 - #### Update Entry
 - #### Add Entry
 
+### Todo
+
+- #### Refactor the code
+- #### Add a confirm delete button
+- #### Add theme options + dark mode
+
 ### Why v2?
 
 Well, I tried to make this 3 years ago but I couldn't finish it so I just decided to start anew xD
