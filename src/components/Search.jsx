@@ -39,12 +39,12 @@ function Search(props) {
 
   const addNew = (item) => {
     item.completed = 0;
-    if (results[1] === 1 && !item.chapters) {
+    if (results[1] === 0 && !item.chapters) {
       item.total = 1;
     } else {
       item.total = item.chapters;
     }
-    if (results[1] === 0 && !item.episodes) {
+    if (results[1] === 1 && !item.episodes) {
       item.total = 1;
     } else {
       item.total = item.episodes;

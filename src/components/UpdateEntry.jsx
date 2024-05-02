@@ -65,7 +65,10 @@ function UpdateEntry(props) {
             <button
               id="save-update"
               onClick={() => {
-                props.setModal([false, false]);
+                setShow(false);
+                setTimeout(() => {
+                  props.setModal([false, false]);
+                }, 500);
               }}
             >
               Save
