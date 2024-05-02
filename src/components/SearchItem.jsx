@@ -5,6 +5,8 @@ function SearchItem(props) {
   let type;
   const addNew = () => {
     item.type = type;
+    item.total = 1;
+    item.completed = 0;
     props.addNew(item);
   };
   switch (item.type) {

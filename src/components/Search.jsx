@@ -11,6 +11,7 @@ function Search(props) {
   const [loading, setLoading] = useState(false);
   const searchQuery = (e) => {
     e.preventDefault();
+    queryRef.current.blur();
     if (resultsRef.current) {
       resultsRef.current.scrollTop = 0;
     }
@@ -38,15 +39,10 @@ function Search(props) {
   const [results, setResults] = useState([[], 0]);
 
   const addNew = (item) => {
-    item.completed = 0;
-    if (results[1] === 0 && !item.chapters) {
-      item.total = 1;
-    } else {
+    if (results[1] === 1 && item.chapters) {
       item.total = item.chapters;
     }
-    if (results[1] === 1 && !item.episodes) {
-      item.total = 1;
-    } else {
+    if (results[1] === 1 && item.episodes) {
       item.total = item.episodes;
     }
     props.setAnime((prevAnime) => [...prevAnime, item]);
