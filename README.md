@@ -1,6 +1,6 @@
 # Anime Tracker v2
 
-![](screenshots\anime-tracker.png)
+![](/screenshots/anime-tracker.png)
 
 A simple web app to manually track your anime/manga progress.
 
@@ -26,6 +26,6 @@ Well, I tried to make this 3 years ago but I couldn't finish it so I just decide
 
 ### Gallery
 
-![](screenshots\anime-tracker-mobile.png)
-![](screenshots\anime-tracker-search.png)
-![](screenshots\anime-tracker-update.png)
+![](/screenshots/anime-tracker-mobile.png)
+![](/screenshots/anime-tracker-search.png)
+![](/screenshots/anime-tracker-update.png)
