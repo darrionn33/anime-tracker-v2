@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import AnimeEntry from "./AnimeEntry";
 import MobileFilters from "./MobileFilters";
 

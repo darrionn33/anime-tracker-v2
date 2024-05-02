@@ -186,6 +186,7 @@ header {
   border-radius: 10px;
   background-color: var(--primary);
   height: 100%;
+  transition: width 0.3s;
 }
 .right {
   width: 95px;
@@ -212,7 +213,8 @@ header {
 }
 #modal:has(.search),
 #modal:has(.update-entry) {
-  min-height: 100dvh;
+  overflow: hidden;
+  height: 100dvh;
   width: 100dvw;
   position: absolute;
   top: 0;

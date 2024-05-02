@@ -3,9 +3,11 @@ import { FaSearch } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import SearchItem from "./SearchItem";
 import ReactLoading from "react-loading";
+import { AnimatePresence, motion } from "framer-motion";
 function Search(props) {
   const queryRef = useRef();
   const resultsRef = useRef();
+  const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(false);
   const searchQuery = (e) => {
     e.preventDefault();
@@ -48,70 +50,88 @@ function Search(props) {
       item.total = item.episodes;
     }
     props.setAnime((prevAnime) => [...prevAnime, item]);
-    props.setModal([false, false]);
+    setShow(false);
+    setTimeout(() => {
+      props.setModal([false, false]);
+    }, 500);
   };
   return (
-    <>
-      <div
-        className="backdrop"
-        onClick={() => {
-          props.setModal([false, false]);
-        }}
-      ></div>
-      <div className="search">
-        <form className="search-bar" onSubmit={searchQuery}>
-          <button>
-            <IconContext.Provider value={{ className: "search-icon" }}>
-              <FaSearch />
-            </IconContext.Provider>
-          </button>
-          <input
-            ref={queryRef}
-            autoComplete="off"
-            type="text"
-            name="search"
-            id="search-input"
-            placeholder="Enter a name..."
-          />
-        </form>
-        <div>
-          <p>Type:</p>
-          <input
-            type="radio"
-            name="type-search"
-            id="anime-search"
-            value="anime"
-            defaultChecked
-          />
-          <label htmlFor="anime-search">Anime</label>
-          <input
-            type="radio"
-            name="type-search"
-            id="manga-search"
-            value="manga"
-          />
-          <label htmlFor="manga-search">Manga</label>
-        </div>
-        {loading ? (
-          <div className="loading">
-            <ReactLoading type={"spin"} color="#302674" />
-          </div>
-        ) : results[0].length !== 0 ? (
-          <div className="search-results" ref={resultsRef}>
-            {results[0].map((item, index) => (
-              <SearchItem
-                item={item}
-                addNew={addNew}
-                key={index}
-                type={results[1]}
+    <AnimatePresence>
+      {show ? (
+        <>
+          <motion.div
+            exit={{ opacity: 0 }}
+            className="backdrop"
+            onClick={() => {
+              setShow(false);
+              setTimeout(() => {
+                props.setModal([false, false]);
+              }, 500);
+            }}
+          ></motion.div>
+          <motion.div
+            key="xyz"
+            className="search"
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ type: "spring", bounce: 0.4, duration: 0.5 }}
+          >
+            <form className="search-bar" onSubmit={searchQuery}>
+              <button>
+                <IconContext.Provider value={{ className: "search-icon" }}>
+                  <FaSearch />
+                </IconContext.Provider>
+              </button>
+              <input
+                ref={queryRef}
+                autoComplete="off"
+                type="text"
+                name="search"
+                id="search-input"
+                placeholder="Enter a name..."
               />
-            ))}
-          </div>
-        ) : (
-          <p>Please search to get results!</p>
-        )}
-      </div>
-    </>
+            </form>
+            <div>
+              <p>Type:</p>
+              <input
+                type="radio"
+                name="type-search"
+                id="anime-search"
+                value="anime"
+                defaultChecked
+              />
+              <label htmlFor="anime-search">Anime</label>
+              <input
+                type="radio"
+                name="type-search"
+                id="manga-search"
+                value="manga"
+              />
+              <label htmlFor="manga-search">Manga</label>
+            </div>
+            {loading ? (
+              <div className="loading">
+                <ReactLoading type={"spin"} color="#302674" />
+              </div>
+            ) : results[0].length !== 0 ? (
+              <div className="search-results" ref={resultsRef}>
+                {results[0].map((item, index) => (
+                  <SearchItem
+                    item={item}
+                    addNew={addNew}
+                    key={index}
+                    type={results[1]}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p>Please search to get results!</p>
+            )}
+          </motion.div>
+        </>
+      ) : null}
+    </AnimatePresence>
   );
 }
 

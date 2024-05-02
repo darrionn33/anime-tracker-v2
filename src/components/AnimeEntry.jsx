@@ -1,5 +1,6 @@
 import React from "react";
 import EllipsisText from "react-ellipsis-text/lib/components/EllipsisText";
+import { motion } from "framer-motion";
 
 function AnimeEntry(props) {
   const percentage =
@@ -15,7 +16,10 @@ function AnimeEntry(props) {
   };
 
   return (
-    <div
+    <motion.div
+      key={props.index}
+      animate={{ x: [-100, 0], opacity: [0.7, 1] }}
+      exit={{ x: 100 }}
       className="anime-entry"
       onClick={() => {
         props.setModal([true, 1, props.index]);
@@ -47,7 +51,7 @@ function AnimeEntry(props) {
           </button>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
