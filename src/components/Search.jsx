@@ -39,7 +39,7 @@ function Search(props) {
   const [results, setResults] = useState([[], 0]);
 
   const addNew = (item) => {
-    if (results[1] === 1 && item.chapters) {
+    if (results[1] === 0 && item.chapters) {
       item.total = item.chapters;
     }
     if (results[1] === 1 && item.episodes) {
