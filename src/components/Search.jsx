@@ -5,9 +5,13 @@ import SearchItem from "./SearchItem";
 import ReactLoading from "react-loading";
 function Search(props) {
   const queryRef = useRef();
+  const resultsRef = useRef();
   const [loading, setLoading] = useState(false);
   const searchQuery = (e) => {
     e.preventDefault();
+    if (resultsRef.current) {
+      resultsRef.current.scrollTop = 0;
+    }
     if (queryRef.current.value !== "") {
       setLoading(true);
       const type = document.querySelector(
@@ -67,7 +71,7 @@ function Search(props) {
             type="text"
             name="search"
             id="search-input"
-            placeholder="Enter an anime name..."
+            placeholder="Enter a name..."
           />
         </form>
         <div>
@@ -93,7 +97,7 @@ function Search(props) {
             <ReactLoading type={"spin"} color="#302674" />
           </div>
         ) : results[0].length !== 0 ? (
-          <div className="search-results">
+          <div className="search-results" ref={resultsRef}>
             {results[0].map((item, index) => (
               <SearchItem
                 item={item}
