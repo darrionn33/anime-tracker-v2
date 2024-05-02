@@ -9,34 +9,43 @@ function Search(props) {
   const resultsRef = useRef();
   const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState([[], 0]);
+
   const searchQuery = (e) => {
     e.preventDefault();
-    queryRef.current.blur();
+    queryRef.current.blur(); // close keyboard on mobile
     if (resultsRef.current) {
-      resultsRef.current.scrollTop = 0;
+      resultsRef.current.scrollTop = 0; // reset scroll if previously searched
     }
     if (queryRef.current.value !== "") {
       setLoading(true);
       const type = document.querySelector(
         'input[name="type-search"]:checked'
       ).value;
-      fetch(`https://api.jikan.moe/v4/${type}?q=${queryRef.current.value}`)
+      const query = queryRef.current.value;
+      fetch(`https://api.jikan.moe/v4/${type}?q=${query}`)
         .then((response) => response.json())
         .then((data) => {
-          if (type == "anime") {
-            setResults([data.data, 1]);
+          if (data.data.length > 0) {
+            if (type == "anime") {
+              setResults([data.data, 1]);
+            } else {
+              setResults([data.data, 0]);
+            }
           } else {
-            setResults([data.data, 0]);
+            alert("No result found!");
           }
           setLoading(false);
         })
-        .catch((e) => console.log({ error: e }));
-      queryRef.current.value = "";
+        .catch((e) => {
+          console.log({ error: e });
+          setLoading(false);
+          alert("Error! Maybe you're not online? Or maybe it's an API error.");
+        });
       return;
     }
     alert("Please enter a search term!");
   };
-  const [results, setResults] = useState([[], 0]);
 
   const addNew = (item) => {
     if (results[1] === 0 && item.chapters) {
@@ -114,10 +123,10 @@ function Search(props) {
               <div className="search-results" ref={resultsRef}>
                 {results[0].map((item, index) => (
                   <SearchItem
-                    item={item}
-                    addNew={addNew}
                     key={index}
+                    item={item}
                     type={results[1]}
+                    addNew={addNew}
                   />
                 ))}
               </div>

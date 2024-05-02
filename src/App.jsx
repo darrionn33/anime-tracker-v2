@@ -1,31 +1,34 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import AnimeList from "./components/AnimeList";
+import AnimeList from "./components/AnimeList/AnimeList";
 import Sidebar from "./components/Sidebar";
-import Modal from "./components/Modal";
+import Modal from "./components/Modals/Modal";
 
 function App() {
-  let storedData = [];
+  let storedData = []; // default data if no data
+
   if (localStorage.getItem("list")) {
     storedData = JSON.parse(localStorage.getItem("list"));
   }
-  const [anime, setAnime] = useState(storedData);
 
+  const [anime, setAnime] = useState(storedData);
+  const [filter, setFilter] = useState("All");
+  const [modal, setModal] = useState([false]);
+
+  // Save to local storage on every change
   useEffect(() => {
     localStorage.setItem("list", JSON.stringify(anime));
   }, [anime]);
 
-  const [filter, setFilter] = useState("All");
-  const [modal, setModal] = useState([false, null]);
   return (
     <>
       {modal[0] ? (
         <Modal
           option={modal[1]}
-          setModal={setModal}
-          setAnime={setAnime}
-          anime={anime}
           index={modal[2]}
+          anime={anime}
+          setAnime={setAnime}
+          setModal={setModal}
         />
       ) : null}
       <header>Anime Tracker</header>
@@ -33,8 +36,8 @@ function App() {
       <AnimeList
         anime={anime}
         setAnime={setAnime}
-        setFilter={setFilter}
         filter={filter}
+        setFilter={setFilter}
         setModal={setModal}
       />
     </>

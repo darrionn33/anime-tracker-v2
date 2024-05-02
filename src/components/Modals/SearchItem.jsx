@@ -2,13 +2,15 @@ import React from "react";
 
 function SearchItem(props) {
   const item = props.item;
-  let type;
+
   const addNew = () => {
     item.type = type;
     item.total = 1;
     item.completed = 0;
     props.addNew(item);
   };
+
+  let type;
   switch (item.type) {
     case "Movie":
     case "TV":

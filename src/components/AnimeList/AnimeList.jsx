@@ -4,15 +4,21 @@ import MobileFilters from "./MobileFilters";
 
 function AnimeList(props) {
   const changeAnime = (index, add) => {
-    if (add == true) {
-      if (props.anime[index].completed < props.anime[index].total) {
-        props.anime[index].completed = props.anime[index].completed + 1;
-        props.setAnime((prevAnime) => [...props.anime]);
+    const anime = props.anime;
+    let total = props.anime[index].total;
+    let completed = props.anime[index].completed;
+
+    if (add) {
+      if (completed < total) {
+        completed = completed + 1;
+        anime[index].completed = completed;
+        props.setAnime([...anime]);
       }
     } else {
-      if (props.anime[index].completed > 0) {
-        props.anime[index].completed = props.anime[index].completed - 1;
-        props.setAnime((prevAnime) => [...props.anime]);
+      if (completed > 0) {
+        completed = completed - 1;
+        anime[index].completed = completed;
+        props.setAnime([...anime]);
       }
     }
   };
@@ -32,9 +38,9 @@ function AnimeList(props) {
           props.anime.map((anime, index) => {
             return (
               <AnimeEntry
-                anime={anime}
                 key={index}
                 index={index}
+                anime={anime}
                 changeAnime={changeAnime}
                 setModal={props.setModal}
               />
@@ -46,9 +52,9 @@ function AnimeList(props) {
             .map((anime, index) => {
               return (
                 <AnimeEntry
-                  anime={anime}
                   key={index}
                   index={index}
+                  anime={anime}
                   changeAnime={changeAnime}
                   setModal={props.setModal}
                 />

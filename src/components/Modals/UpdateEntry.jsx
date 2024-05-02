@@ -4,15 +4,31 @@ import React, { useState } from "react";
 function UpdateEntry(props) {
   const item = props.anime[props.index];
   const [show, setShow] = useState(true);
-  const deleteHandler = () => {
+
+  const completedInput = (e) =>
+    props.setAnime((prevAnime) => {
+      if (+e.target.value <= prevAnime[props.index].total) {
+        console.log(1, e.target.value, prevAnime[props.index].completed);
+        prevAnime[props.index].completed = +e.target.value;
+        return [...prevAnime];
+      } else {
+        return [...prevAnime];
+      }
+    });
+
+  const closeUpdateEntry = () => {
     setShow(false);
     setTimeout(() => {
-      props.setAnime((prevAnime) => {
-        prevAnime.splice(props.index, 1);
-        return [...prevAnime];
-      });
       props.setModal([false, false]);
     }, 500);
+  };
+
+  const deleteHandler = () => {
+    closeUpdateEntry();
+    props.setAnime((prevAnime) => {
+      prevAnime.splice(props.index, 1);
+      return [...prevAnime];
+    });
   };
   return (
     <AnimatePresence>
@@ -46,31 +62,9 @@ function UpdateEntry(props) {
               name="update-completed"
               id="update-completed"
               value={item.completed}
-              onChange={(e) =>
-                props.setAnime((prevAnime) => {
-                  if (+e.target.value <= prevAnime[props.index].total) {
-                    console.log(
-                      1,
-                      e.target.value,
-                      prevAnime[props.index].completed
-                    );
-                    prevAnime[props.index].completed = +e.target.value;
-                    return [...prevAnime];
-                  } else {
-                    return [...prevAnime];
-                  }
-                })
-              }
+              onChange={completedInput}
             />
-            <button
-              id="save-update"
-              onClick={() => {
-                setShow(false);
-                setTimeout(() => {
-                  props.setModal([false, false]);
-                }, 500);
-              }}
-            >
+            <button id="save-update" onClick={closeUpdateEntry}>
               Save
             </button>
             <button id="delete-update" onClick={deleteHandler}>
@@ -81,12 +75,7 @@ function UpdateEntry(props) {
             exit={{ opacity: 0 }}
             key="update-backdrop"
             className="backdrop"
-            onClick={() => {
-              setShow(false);
-              setTimeout(() => {
-                props.setModal([false, false]);
-              }, 500);
-            }}
+            onClick={closeUpdateEntry}
           ></motion.div>
         </>
       ) : null}

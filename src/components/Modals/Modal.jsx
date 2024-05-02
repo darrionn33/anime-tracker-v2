@@ -4,12 +4,12 @@ import UpdateEntry from "./UpdateEntry";
 
 function Modal(props) {
   const options = [
-    <Search setModal={props.setModal} setAnime={props.setAnime} />,
+    <Search setAnime={props.setAnime} setModal={props.setModal} />,
     <UpdateEntry
-      setModal={props.setModal}
+      index={props.index}
       anime={props.anime}
       setAnime={props.setAnime}
-      index={props.index}
+      setModal={props.setModal}
     />,
   ];
   return ReactDOM.createPortal(

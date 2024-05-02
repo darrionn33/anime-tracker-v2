@@ -3,33 +3,44 @@ import EllipsisText from "react-ellipsis-text/lib/components/EllipsisText";
 import { motion } from "framer-motion";
 
 function AnimeEntry(props) {
-  const percentage =
-    Math.round((props.anime.completed / props.anime.total) * 100) + "%";
+  const [index, title, type, total, completed] = [
+    props.index,
+    props.anime.title,
+    props.anime.type,
+    props.anime.total,
+    props.anime.completed,
+  ];
+
+  let percentage = Math.round((completed / total) * 100) + "%";
+
+  // more accurate percentage for bigger numbers
+  if (total >= 150) {
+    percentage = Math.round((completed / total) * 1000) / 10 + "%";
+  }
 
   const add = (e) => {
     e.stopPropagation();
-    props.changeAnime(props.index, true);
+    props.changeAnime(index, true);
   };
   const sub = (e) => {
     e.stopPropagation();
-    props.changeAnime(props.index, false);
+    props.changeAnime(index, false);
   };
 
   return (
     <motion.div
-      key={props.index}
+      key={index}
       animate={{ x: [-100, 0], opacity: [0.7, 1] }}
-      exit={{ x: 100 }}
       className="anime-entry"
       onClick={() => {
-        props.setModal([true, 1, props.index]);
+        props.setModal([true, 1, index]);
       }}
     >
       <div className="left">
         <h3 className="title">
-          <EllipsisText text={props.anime.title} length={40} />
+          <EllipsisText text={title} length={40} />
         </h3>
-        <span className={"tag " + props.anime.type}>{props.anime.type}</span>
+        <span className={"tag " + type}>{type}</span>
         <div className="progress-bar">
           <p className="text">{percentage}</p>
           <div
@@ -41,7 +52,7 @@ function AnimeEntry(props) {
         </div>
       </div>
       <div className="right">
-        <h4 className="count">{`${props.anime.completed} / ${props.anime.total}`}</h4>
+        <h4 className="count">{`${completed} / ${total}`}</h4>
         <div className="buttons">
           <button className="add" onClick={add}>
             +
