@@ -3,6 +3,7 @@ import "./App.css";
 import AnimeList from "./components/AnimeList/AnimeList";
 import Sidebar from "./components/Sidebar";
 import Modal from "./components/Modals/Modal";
+import Header from "./components/Header.jsx";
 
 function App() {
   let storedData = []; // default data if no data
@@ -31,7 +32,7 @@ function App() {
           setModal={setModal}
         />
       ) : null}
-      <header>Anime Tracker</header>
+      <Header />
       <Sidebar setFilter={setFilter} setModal={setModal} />
       <AnimeList
         anime={anime}

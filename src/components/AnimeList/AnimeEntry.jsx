@@ -13,7 +13,7 @@ const Button = styled.button`
 
 const AddButton = styled(Button)`
   background-color: var(--primary);
-  color: var(--tertiary);
+  color: var(--onPrimary);
   margin-right: 5px;
 `;
 const SubButton = styled(Button)`
@@ -24,7 +24,7 @@ const EntryDiv = styled(motion.div)`
   width: 340px;
   height: 120px;
   display: flex;
-  background-color: var(--tertiary);
+  background-color: var(--secondary);
   color: var(--primary);
   padding: 15px;
   border-radius: 10px;
@@ -57,13 +57,19 @@ const ProgressBar = styled.div`
   margin-top: 5px;
   width: 75%;
   height: 10px;
-  border: 1px solid;
   border-radius: 10px;
   position: relative;
-
+  background-color: var(--background);
   & > div {
     border-radius: 10px;
-    background-color: var(--primary);
+    background-color: ${(props) =>
+      props.$type == "Anime"
+        ? "#8e2d7a"
+        : props.$type == "Manga"
+        ? "#f97a5d"
+        : props.$type == "Manhwa"
+        ? "#00c857"
+        : "inherit"};
     height: 100%;
     transition: width 0.3s;
     width: ${(props) => props.$percentage};
@@ -125,7 +131,7 @@ function AnimeEntry(props) {
           <EllipsisText text={title} length={40} />
         </h3>
         <Tag $type={type}>{type}</Tag>
-        <ProgressBar $percentage={percentage}>
+        <ProgressBar $percentage={percentage} $type={type}>
           <p>{percentage}</p>
           <div />
         </ProgressBar>

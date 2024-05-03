@@ -4,6 +4,7 @@ import MobileFilters from "./MobileFilters";
 import styled from "styled-components";
 
 const ListDiv = styled.div`
+  background-color: var(--background);
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -16,6 +17,7 @@ const ListDiv = styled.div`
   justify-content: center;
 
   & > button {
+    z-index: 99;
     display: none;
     position: fixed;
     width: 60px;

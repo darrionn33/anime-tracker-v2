@@ -16,11 +16,13 @@ const SearchDiv = styled(motion.div)`
   padding: 20px;
   border-radius: 10px;
   justify-content: center;
+  background-color: var(--tertiary);
 
   & > div:nth-child(2) {
     padding: 10px;
     display: flex;
     align-items: center;
+    color: var(--primary);
   }
   & > div > input[type="radio"] {
     margin-left: 10px;
@@ -31,6 +33,10 @@ const SearchDiv = styled(motion.div)`
 const SearchBar = styled.form`
   display: flex;
   margin-bottom: 10px;
+
+  & .search-icon {
+    fill: black;
+  }
 
   & > button {
     position: absolute;
@@ -58,6 +64,7 @@ const SearchBar = styled.form`
     color: black;
   }
   & > input {
+    color: black;
     flex-grow: 1;
     width: min(450px, 85dvw);
     height: 50px;
@@ -76,7 +83,7 @@ const ResultsDiv = styled.div`
 `;
 
 const Placeholder = styled.div`
-  color: gray;
+  color: var(--onTertiary);
   height: 100px;
   display: grid;
   place-items: center;

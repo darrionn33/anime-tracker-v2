@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const SidebarDiv = styled.div`
-  background-color: var(--background);
+  background-color: var(--secondary);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,7 +26,7 @@ const SidebarDiv = styled.div`
 const Divider = styled.div`
   width: 70%;
   height: 2px;
-  background-color: rgba(66, 66, 66, 0.215);
+  background-color: rgba(0, 0, 0, 0.15);
   margin: 20px 0;
 `;
 

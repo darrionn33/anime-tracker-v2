@@ -1,6 +1,7 @@
 # Anime Tracker v2
 
-![](/screenshots/anime-tracker.png)
+![](/screenshots/anime-tracker-blue.png)
+![](/screenshots/anime-tracker-purple.png)
 
 A simple web app to manually track your anime/manga progress.
 
@@ -8,10 +9,10 @@ A simple web app to manually track your anime/manga progress.
 
 ### Tools used:
 
-- Jikan API
 - React
 - Styled Components
 - Framer Motion
+- Jikan API
 - vite-plugin-pwa
 
 ### Features
@@ -20,12 +21,15 @@ A simple web app to manually track your anime/manga progress.
 - #### Responsive Design
 - #### Update Entry
 - #### Add Entry
+- #### Change Color mode (Blue/Purple)
 
 ### Todo
 
+- #### Add option to export data and batch add/remove entries
+- #### Add more color options
 - #### ~~Refactor the code~~
 - #### ~~Add a confirm delete button~~
-- #### Add theme options + dark mode
+- #### ~~Add theme options + dark mode~~
 
 ### Why v2?
 

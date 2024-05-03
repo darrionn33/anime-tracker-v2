@@ -5,6 +5,8 @@ const Filter = styled.div`
   display: none;
   justify-content: center;
   gap: 5px;
+  align-items: start;
+  height: 30px;
 
   @media (max-width: 650px) {
     display: flex;
@@ -35,6 +37,7 @@ const Labels = styled.label`
   filter: saturate(0);
   display: flex;
   align-items: center;
+
   &:nth-child(2) {
     background-color: var(--primary);
   }

@@ -6,7 +6,7 @@ const ConfirmDiv = styled(motion.div)`
   z-index: 3;
   position: absolute;
   width: min(300px, 80dvw);
-  background: var(--tertiary);
+  background-color: var(--secondary);
   color: var(--primary);
   border-radius: 10px;
   border: 1px solid;
@@ -32,7 +32,6 @@ const ConfirmDiv = styled(motion.div)`
     color: red;
   }
   & button:nth-child(2) {
-    background-color: var(--background);
     border: 1px solid var(--primary);
     color: var(--primary);
   }
@@ -42,7 +41,7 @@ const UpdateDiv = styled(motion.div)`
   z-index: 2;
   top: 0;
   width: min(350px, 90dvw);
-  background: var(--tertiary);
+  background-color: var(--secondary);
   color: var(--primary);
   border-radius: 10px;
   padding: 15px;
@@ -62,6 +61,7 @@ const UpdateDiv = styled(motion.div)`
     margin-bottom: 5px;
     border: 1px solid var(--primary);
     padding-left: 10px;
+    color: var(--primary);
   }
   & input:focus,
   & input:active {
@@ -73,7 +73,7 @@ const UpdateDiv = styled(motion.div)`
   }
   & button:nth-child(6) {
     background-color: var(--primary);
-    color: var(--tertiary);
+    color: var(--onPrimary);
     border-style: none;
   }
   & button:nth-child(7) {

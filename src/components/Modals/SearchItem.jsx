@@ -8,7 +8,10 @@ const ItemDiv = styled.div`
   display: flex;
   background-color: var(--tertiary);
 
+  box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+
   & > div {
+    padding: 10px 0;
     flex: 1;
     gap: 10px;
     display: flex;
