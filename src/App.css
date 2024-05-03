@@ -44,6 +44,7 @@ header {
   text-align: center;
 }
 #modal:has(.search),
+#modal:has(.confirm),
 #modal:has(.update-entry) {
   overflow: hidden;
   height: 100dvh;
@@ -57,6 +58,7 @@ header {
 .backdrop {
   background: rgba(0, 0, 0, 0.5);
   top: 0;
+  left: 0;
   position: absolute;
   height: 100%;
   width: 100%;

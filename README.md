@@ -10,6 +10,7 @@ A simple web app to manually track your anime/manga progress.
 
 - Jikan API
 - React
+- Styled Components
 - Framer Motion
 - vite-plugin-pwa
 
@@ -22,8 +23,8 @@ A simple web app to manually track your anime/manga progress.
 
 ### Todo
 
-- #### Refactor the code
-- #### Add a confirm delete button
+- #### ~~Refactor the code~~
+- #### ~~Add a confirm delete button~~
 - #### Add theme options + dark mode
 
 ### Why v2?

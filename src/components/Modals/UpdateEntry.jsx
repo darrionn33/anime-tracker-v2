@@ -2,6 +2,42 @@ import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
 import styled from "styled-components";
 
+const ConfirmDiv = styled(motion.div)`
+  z-index: 3;
+  position: absolute;
+  width: min(300px, 80dvw);
+  background: var(--tertiary);
+  color: var(--primary);
+  border-radius: 10px;
+  border: 1px solid;
+  padding: 15px;
+  text-align: center;
+
+  & > p {
+    margin-bottom: 50px;
+  }
+
+  & > div {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+  }
+  & div > button {
+    flex: 1;
+    height: 40px;
+  }
+  & button:nth-child(1) {
+    background-color: rgb(255, 190, 190);
+    border: 1px solid red;
+    color: red;
+  }
+  & button:nth-child(2) {
+    background-color: var(--background);
+    border: 1px solid var(--primary);
+    color: var(--primary);
+  }
+`;
+
 const UpdateDiv = styled(motion.div)`
   z-index: 2;
   top: 0;
@@ -50,6 +86,7 @@ const UpdateDiv = styled(motion.div)`
 function UpdateEntry(props) {
   const item = props.anime[props.index];
   const [show, setShow] = useState(true);
+  const [confirm, setConfirm] = useState(false);
 
   const completedInput = (e) =>
     props.setAnime((prevAnime) => {
@@ -63,6 +100,7 @@ function UpdateEntry(props) {
     });
 
   const closeUpdateEntry = () => {
+    setConfirm(false);
     setShow(false);
     setTimeout(() => {
       props.setModal([false, false]);
@@ -78,8 +116,30 @@ function UpdateEntry(props) {
   };
   return (
     <AnimatePresence>
+      {confirm ? (
+        <ConfirmDiv
+          key={69}
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 50, opacity: 0 }}
+          transition={{ type: "spring", bounce: 0.4, duration: 0.5 }}
+        >
+          <p>Are you sure you want to delete?</p>
+          <div>
+            <button onClick={deleteHandler}>Delete</button>
+            <button
+              onClick={() => {
+                setConfirm(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </ConfirmDiv>
+      ) : null}
       {show ? (
         <>
+          {" "}
           <UpdateDiv
             className="update-entry"
             key="update-entry"
@@ -113,7 +173,12 @@ function UpdateEntry(props) {
             <button id="save-update" onClick={closeUpdateEntry}>
               Save
             </button>
-            <button id="delete-update" onClick={deleteHandler}>
+            <button
+              id="delete-update"
+              onClick={() => {
+                setConfirm(true);
+              }}
+            >
               Delete
             </button>
           </UpdateDiv>
