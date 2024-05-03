@@ -1,3 +1,9 @@
+:root {
+  --primary: #302674;
+  --secondary: #98bad5;
+  --tertiary: #c6d3e3;
+  --background: #d8e1e8;
+}
 *,
 *::after,
 *::after {
@@ -11,26 +17,16 @@
 button {
   cursor: pointer;
 }
-/* Disable blue highlight on button click */
+/* Disable blue highlight on button click and links */
 button,
 a,
-input {
+input,
+a {
   -webkit-tap-highlight-color: transparent;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-focus-ring-color: rgba(255, 255, 255, 0) !important;
 }
 
-/* Disable blue highlight for links */
-a {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-:root {
-  --primary: #302674;
-  --secondary: #98bad5;
-  --tertiary: #c6d3e3;
-  --background: #d8e1e8;
-}
 #app {
   display: grid;
   height: 100dvh;
