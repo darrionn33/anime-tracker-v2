@@ -127,7 +127,7 @@ function AnimeEntry(props) {
         <Tag $type={type}>{type}</Tag>
         <ProgressBar $percentage={percentage}>
           <p>{percentage}</p>
-          <div></div>
+          <div />
         </ProgressBar>
       </LeftDiv>
       <RightDiv>

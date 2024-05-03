@@ -1,4 +1,36 @@
 import React from "react";
+import styled from "styled-components";
+
+const ItemDiv = styled.div`
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  display: flex;
+  background-color: var(--tertiary);
+
+  & > div {
+    flex: 1;
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  & > h3 {
+    width: min(300px, 50dvw);
+    overflow-x: auto;
+  }
+  & p:nth-child(2) {
+    font-size: small;
+  }
+
+  & button {
+    padding: 10px 15px;
+    font-size: x-large;
+    background-color: #00c857;
+    color: white;
+    border: none;
+  }
+`;
 
 function SearchItem(props) {
   const item = props.item;
@@ -32,8 +64,8 @@ function SearchItem(props) {
       break;
   }
   return (
-    <div className="search-item">
-      <div className="info">
+    <ItemDiv>
+      <div>
         <h3>{item.title}</h3>
         {props.type ? (
           <p>
@@ -49,10 +81,8 @@ function SearchItem(props) {
           </p>
         )}
       </div>
-      <button id="addNew" onClick={addNew}>
-        +
-      </button>
-    </div>
+      <button onClick={addNew}>+</button>
+    </ItemDiv>
   );
 }
 

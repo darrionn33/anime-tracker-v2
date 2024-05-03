@@ -4,12 +4,97 @@ import { IconContext } from "react-icons";
 import SearchItem from "./SearchItem";
 import ReactLoading from "react-loading";
 import { AnimatePresence, motion } from "framer-motion";
+import styled from "styled-components";
+
+const SearchDiv = styled(motion.div)`
+  position: relative;
+  background-color: white;
+  width: min(500px, 95dvw);
+  opacity: 1;
+  display: grid;
+  grid-template-rows: 50px 1fr;
+  padding: 20px;
+  border-radius: 10px;
+  justify-content: center;
+
+  & > div:nth-child(2) {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+  }
+  & > div > input[type="radio"] {
+    margin-left: 10px;
+    margin-right: 5px;
+  }
+`;
+
+const SearchBar = styled.form`
+  display: flex;
+  margin-bottom: 10px;
+
+  & > button {
+    position: absolute;
+    right: 25px;
+    color: grey;
+    padding: 15px;
+    font-size: large;
+    width: 50px;
+    height: 50px;
+    border: none;
+    background-color: transparent;
+  }
+
+  &::after {
+    position: absolute;
+    top: 27px;
+    right: 70px;
+    content: "";
+    height: 35px;
+    width: 3px;
+    background-color: gray;
+    opacity: 0.3;
+  }
+  & > button:has(+ input:focus) {
+    color: black;
+  }
+  & > input {
+    flex-grow: 1;
+    width: min(450px, 85dvw);
+    height: 50px;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 60px;
+    border-radius: 30px;
+    border: 1px solid gray;
+  }
+`;
+
+const ResultsDiv = styled.div`
+  overflow-y: scroll;
+  height: min(500px, 60dvh);
+  padding: 0 10px;
+`;
+
+const Placeholder = styled.div`
+  color: gray;
+  height: 100px;
+  display: grid;
+  place-items: center;
+`;
+
 function Search(props) {
   const queryRef = useRef();
   const resultsRef = useRef();
   const [show, setShow] = useState(true);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([[], 0]);
+
+  const closeUpdateEntry = () => {
+    setShow(false);
+    setTimeout(() => {
+      props.setModal([false, false]);
+    }, 500);
+  };
 
   const searchQuery = (e) => {
     e.preventDefault();
@@ -55,10 +140,7 @@ function Search(props) {
       item.total = item.episodes;
     }
     props.setAnime((prevAnime) => [...prevAnime, item]);
-    setShow(false);
-    setTimeout(() => {
-      props.setModal([false, false]);
-    }, 500);
+    closeUpdateEntry();
   };
   return (
     <AnimatePresence>
@@ -68,13 +150,10 @@ function Search(props) {
             exit={{ opacity: 0 }}
             className="backdrop"
             onClick={() => {
-              setShow(false);
-              setTimeout(() => {
-                props.setModal([false, false]);
-              }, 500);
+              closeUpdateEntry();
             }}
           ></motion.div>
-          <motion.div
+          <SearchDiv
             key="xyz"
             className="search"
             initial={{ y: 100, opacity: 0 }}
@@ -82,7 +161,7 @@ function Search(props) {
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: "spring", bounce: 0.4, duration: 0.5 }}
           >
-            <form className="search-bar" onSubmit={searchQuery}>
+            <SearchBar onSubmit={searchQuery}>
               <button>
                 <IconContext.Provider value={{ className: "search-icon" }}>
                   <FaSearch />
@@ -96,7 +175,7 @@ function Search(props) {
                 id="search-input"
                 placeholder="Enter a name..."
               />
-            </form>
+            </SearchBar>
             <div>
               <p>Type:</p>
               <input
@@ -116,11 +195,11 @@ function Search(props) {
               <label htmlFor="manga-search">Manga</label>
             </div>
             {loading ? (
-              <div className="loading">
+              <Placeholder>
                 <ReactLoading type={"spin"} color="#302674" />
-              </div>
+              </Placeholder>
             ) : results[0].length !== 0 ? (
-              <div className="search-results" ref={resultsRef}>
+              <ResultsDiv ref={resultsRef}>
                 {results[0].map((item, index) => (
                   <SearchItem
                     key={index}
@@ -129,11 +208,11 @@ function Search(props) {
                     addNew={addNew}
                   />
                 ))}
-              </div>
+              </ResultsDiv>
             ) : (
-              <p>Please search to get results!</p>
+              <Placeholder>Please search to get results!</Placeholder>
             )}
-          </motion.div>
+          </SearchDiv>
         </>
       ) : null}
     </AnimatePresence>

@@ -1,5 +1,51 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { useState } from "react";
+import styled from "styled-components";
+
+const UpdateDiv = styled(motion.div)`
+  z-index: 2;
+  top: 0;
+  width: min(350px, 90dvw);
+  background: var(--tertiary);
+  color: var(--primary);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  & h3 {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    height: 50px;
+  }
+  & input {
+    height: 40px;
+    margin-bottom: 5px;
+    border: 1px solid var(--primary);
+    padding-left: 10px;
+  }
+  & input:focus,
+  & input:active {
+    outline: none;
+    border: 1px solid var(--primary);
+  }
+  & button {
+    height: 40px;
+  }
+  & button:nth-child(6) {
+    background-color: var(--primary);
+    color: var(--tertiary);
+    border-style: none;
+  }
+  & button:nth-child(7) {
+    background-color: rgb(255, 190, 190);
+    border: 1px solid red;
+    color: red;
+  }
+`;
 
 function UpdateEntry(props) {
   const item = props.anime[props.index];
@@ -34,7 +80,7 @@ function UpdateEntry(props) {
     <AnimatePresence>
       {show ? (
         <>
-          <motion.div
+          <UpdateDiv
             className="update-entry"
             key="update-entry"
             initial={{ y: 100, opacity: 0 }}
@@ -70,7 +116,7 @@ function UpdateEntry(props) {
             <button id="delete-update" onClick={deleteHandler}>
               Delete
             </button>
-          </motion.div>
+          </UpdateDiv>
           <motion.div
             exit={{ opacity: 0 }}
             key="update-backdrop"
